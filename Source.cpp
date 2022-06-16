@@ -43,7 +43,7 @@ int main()
 	//}
 
 	rk.groundState();
-	std::cout << rk.getMu() << ' ' << (1 - rk.getNorm()) << " | " << rk.printPhases() << '\n';
+	std::cout << rk.getMu() << ' ' << (1 - rk.getNorm()) << " | " << rk.printNorms() << '\n';
 
 	//std::cout << rk.runTime(10, true);
 
