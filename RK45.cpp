@@ -70,23 +70,6 @@ int RK45::full_step(comp factor)
 	return n;
 }
 
-std::string RK45::runTime(double time, bool print)
-{
-	std::string str = "";
-
-	while (t <= time)
-	{
-		this->full_step();
-		
-		if (print)
-		{
-			str += std::to_string(getTime()) + ' ' + std::to_string(getNorm()) + " | " + printNorms() + '\n';
-		}
-	}
-
-	return str;
-}
-
 double RK45::getRMS() const
 {
 	double x2 = 0.0;

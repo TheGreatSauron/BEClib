@@ -16,7 +16,6 @@ public:
 	virtual std::valarray<comp> func(std::valarray<comp> y1);
 
 	int full_step(comp factor = comp(1.0, 0.0));
-	std::string runTime(double time, bool print = false);
 
 	std::valarray<comp> getVector() const;
 	double getStepSize() const;
