@@ -73,3 +73,8 @@ double RK45_1D::getMu() const
 {
 	return mu;
 }
+
+double RK45_1D::getU() const
+{
+	return U;
+}

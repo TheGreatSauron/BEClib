@@ -4,6 +4,7 @@
 
 #include "RK45.h"
 #include "RK45_1D.h"
+#include "RK45_1D_Spin.h"
 
 typedef std::complex<double> comp;
 
@@ -27,23 +28,28 @@ int main()
 		std::cout << rk.getTime() << ' ' << rk.getNorm() << " | " << rk.printVector() << ' ' << std::exp(rk.getTime()) << '\n';
 	}*/
 
-	std::valarray<comp> v(10);
-	v[5] = comp(0.0, 1.0);
+	std::valarray<comp> v(4);
+	for (int i = 0; i < v.size(); i++)
+	{
+		if (i % 2 == 0)
+		{
+			v[i] = 1.0;
+		}
+	}
 
-	RK45_1D rk(0.0001, 0.000000000001, v, 1.0, 1.0);
+	RK45_1D_Spin rk(0.0001, 0.000000000001, v, 0.0, 0.0);
 
-	std::cout << rk.getTime() << ' ' << (1 - rk.getNorm()) << " | " << rk.printNorms() << '\n';
+	std::cout << rk.getTime() << ' ' << (1 - rk.getNorm()) << " | " << rk.printVector() << '\n';
 
-	//for (int i = 0; i < 1000; i++)
-	//while (rk.getTime() <= 5.0)
-	//{
-	//	int n = rk.full_step();
-	//
-	//	std::cout << rk.getTime() << ' ' << rk.getRMS() << ' ' << (1 - rk.getNorm()) << " | " << '\n';
-	//}
+	while (rk.getTime() <= 5.0)
+	{
+		int n = rk.full_step();
+	
+		std::cout << rk.getTime() << ' ' << std::abs(1 - rk.getNorm()) << " | " << rk.printVector() << '\n';
+	}
 
-	rk.groundState();
-	std::cout << rk.getMu() << ' ' << (1 - rk.getNorm()) << " | " << rk.printNorms() << '\n';
+	//rk.groundState();
+	//std::cout << rk.getMu() << ' ' << (1 - rk.getNorm()) << " | " << rk.printNorms() << '\n';
 
 	//std::cout << rk.runTime(10, true);
 

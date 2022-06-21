@@ -15,6 +15,7 @@ public:
 	void groundState();
 
 	double getMu() const;
+	double getU() const;
 
 protected:
 
