@@ -54,14 +54,7 @@ std::valarray<comp> RK45_1D::func(std::valarray<comp> y1)
 
 	for (int i = 0; i < n; i++)
 	{
-		if (i == 0)
-		{
-			y2[i] = (-mu * y1[i] - J * (y1[n - 1] + y1[(i + 1) % n]) + U * y1[i] * std::norm(y[i])) / (comp(0.0, 1.0));
-		}
-		else
-		{
-			y2[i] = (-mu * y1[i] - J * (y1[(i - 1) % n] + y1[(i + 1) % n]) + U * y1[i] * std::norm(y[i])) / (comp(0.0, 1.0));
-		}
+		y2[i] = (-mu * y1[i] - J * (y1[((i-1) % n + n) % n] + y1[((i+1) % n + n) % n]) + U * y1[i] * std::norm(y[i])) / (comp(0.0, 1.0));
 	}
 
 	return y2;
