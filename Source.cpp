@@ -37,15 +37,15 @@ int main()
 		}
 	}
 
-	RK45_1D_Spin rk(0.0001, 0.000000000001, v, 0.0, 0.0);
+	RK45_1D_Spin rk(0.0001, 0.000000000001, v, 1.0, 1.0);
 
-	std::cout << rk.getTime() << ' ' << (1 - rk.getNorm()) << " | " << rk.printVector() << '\n';
+	std::cout << rk.getTime() << ' ' << (1 - rk.getNorm()) << " | " << rk.printNorms() << '\n';
 
 	while (rk.getTime() <= 5.0)
 	{
 		int n = rk.full_step();
 	
-		std::cout << rk.getTime() << ' ' << std::abs(1 - rk.getNorm()) << " | " << rk.printVector() << '\n';
+		std::cout << rk.getTime() << ' ' << std::abs(1 - rk.getNorm()) << " | " << rk.printNorms() << '\n';
 	}
 
 	//rk.groundState();

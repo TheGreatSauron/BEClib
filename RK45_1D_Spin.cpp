@@ -24,11 +24,11 @@ std::valarray<comp> RK45_1D_Spin::func(std::valarray<comp> y1)
 	{
 		if (i % 2 == 0)
 		{
-			y2[i] = (-mu * y1[i] - J * (y1[((i - 2) % n + n) % n] + y1[((i + 2) % n + n) % n]) + U * y1[i] * (std::norm(y[i])) + std::norm(y[i + 1])) / (comp(0.0, 1.0));
+			y2[i] = (-mu * y1[i] - J * (y1[((i - 2) % n + n) % n] + y1[((i + 2) % n + n) % n]) + U * y1[i] * (std::norm(y[i]) + std::norm(y[i + 1]))) / (comp(0.0, 1.0));
 		}
 		else
 		{
-			y2[i] = (-mu * y1[i] - J * (y1[((i - 2) % n + n) % n] + y1[((i + 2) % n + n) % n]) + U * y1[i] * (std::norm(y[i])) + std::norm(y[i - 1])) / (comp(0.0, 1.0));
+			y2[i] = (-mu * y1[i] - J * (y1[((i - 2) % n + n) % n] + y1[((i + 2) % n + n) % n]) + U * y1[i] * (std::norm(y[i]) + std::norm(y[i - 1]))) / (comp(0.0, 1.0));
 		}
 	}
 
