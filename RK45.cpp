@@ -62,7 +62,10 @@ int RK45::full_step(comp factor)
 			t += h;
 		}
 
-		h = 0.9 * h * std::pow(acc / TE, 1.0 / 5.0);
+		if (TE != 0.0)
+		{
+			h = 0.9 * h * std::pow(acc / TE, 1.0 / 5.0);
+		}
 	} while (TE > acc);
 
 	y = y2;

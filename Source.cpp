@@ -28,9 +28,13 @@ int main()
 	}*/
 
 	std::valarray<comp> v(10);
-	v[5] = comp(0.0, 1.0);
+	for (int i = 0; i < v.size(); i++)
+	{
+		int n = std::rand() % 100;
+		v[i] = double(n) / 100.0;
+	}
 
-	RK45_1D rk(0.0001, 0.000000000001, v, 1.0, 1.0);
+	RK45_1D rk(0.0001, 0.000000000001, v, 1.0, 30.0);
 
 	std::cout << rk.getTime() << ' ' << (1 - rk.getNorm()) << " | " << rk.printNorms() << '\n';
 
@@ -43,7 +47,7 @@ int main()
 	//}
 
 	rk.groundState();
-	std::cout << rk.getMu() << ' ' << (1 - rk.getNorm()) << " | " << rk.printPhases() << '\n';
+	std::cout << rk.getMu() << ' ' << (1 - rk.getNorm()) << " | " << rk.printNorms() << '\n';
 
 	//std::cout << rk.runTime(10, true);
 

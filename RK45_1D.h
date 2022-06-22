@@ -18,7 +18,5 @@ public:
 
 private:
 
-	static double Q[3];
-
 	double mu, U, J;
 };

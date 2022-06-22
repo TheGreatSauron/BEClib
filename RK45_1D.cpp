@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-double RK45_1D::Q[3] = {0.5, -1.0, 1.0};
-
 RK45_1D::RK45_1D(double step_size, double accuracy, std::valarray<comp> initial,
 	double mu, double U)
 	: RK45(step_size, accuracy, initial), mu(mu), U(U), J(1.0)
@@ -23,29 +21,6 @@ RK45_1D::RK45_1D(double step_size, double accuracy, std::valarray<comp> initial,
 		}
 	}
 }
-
-//comp RK45_1D::func(int i, comp y1)
-//{
-//	int n = y.size();
-//	comp sum;
-//
-//	if (i == 0)
-//	{
-//		//sum = ((Q[0] + Q[2]) * y1 + Q[1] * (y[n - 1] + y[(i + 1) % n]) + 2 * Q[2] * y1 * std::norm(y[i])) / (comp(0.0, 1.0));
-//		//sum = ((Q[0] + Q[2]) * y1 + Q[1] * (y[n - 1] + y[i + 1])) * (comp(0.0, -1.0));
-//		sum = ((Q[0] + Q[2]) * y1 + 2 * Q[2] * y1 * std::norm(y[i])) * comp(0.0, -1.0);
-//	}
-//	else
-//	{
-//		//sum = ((Q[0] + Q[2]) * y1 + Q[1] * (y[(i - 1) % n] + y[(i + 1) % n]) + 2 * Q[2] * y1 * std::norm(y[i])) / (comp(0.0, 1.0));
-//		//sum = ((Q[0] + Q[2]) * y1 + Q[1] * (y[i - 1] + y[(i + 1) % n])) * (comp(0.0, -1.0));
-//		sum = ((Q[0] + Q[2]) * y1 + 2 * Q[2] * y1 * std::norm(y[i])) * comp(0.0, -1.0);
-//	}
-//
-//	//std::cout << sum << '\n';
-//
-//	return sum;
-//}
 
 std::valarray<comp> RK45_1D::func(std::valarray<comp> y1)
 {
@@ -77,10 +52,23 @@ void RK45_1D::groundState()
 
 		full_step(comp(0.0, -1.0));
 
-		mu = mu / getNorm();
-		y /= std::sqrt(getNorm());
+		if (std::abs(mu) <= getAcc())
+		{
+			mu = -mu/std::abs(mu);
+		}
 
-		//std::cout << getMu() << ' ' << (1 - getNorm()) << " | " << printNorms() << '\n';
+		if (mu > 0)
+		{
+			mu = mu / getNorm();
+		}
+		else
+		{ 
+			mu = mu * getNorm();
+		}
+
+		//std::cout << func(y1)[0] << ' ' << getMu() << ' ' << (1 - getNorm()) << " | " << printNorms() << '\n';
+
+		y /= std::sqrt(getNorm());
 
 		y1 = y - y1;
 
