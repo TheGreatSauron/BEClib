@@ -20,7 +20,7 @@ int main()
 
 	std::cout << rk.getTime() << ' ' << rk.getNorm() << " | " << rk.printVector() << ' ' << std::exp(rk.getTime()) << '\n';
 
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 20; i++) 
 	{
 		rk.full_step();
 

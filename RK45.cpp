@@ -153,6 +153,11 @@ std::string RK45::printPhases() const
 	return str;
 }
 
+void RK45::setStepSize(double step_size)
+{
+	h = step_size;
+}
+
 double RK45::getNorm() const
 {
 	double norm = 0.0;
@@ -175,113 +180,7 @@ double RK45::getAcc() const
 	return acc;
 }
 
-//comp func(int i, comp y1)
-//{
-//	return y1;
-//}
-
 std::valarray<comp> RK45::func(std::valarray<comp> y1)
 {
 	return y1;
 }
-
-//comp* RK45::step(int i)
-//{
-//	comp* y2 = new comp[2];
-//
-//	comp y1 = y[i];
-//	comp k[6];
-//
-//	k[0] = h * func(i, y1);
-//	k[1] = h * func(i, y1 + B[0][0] * k[0]);
-//	k[2] = h * func(i, y1 + B[1][0] * k[0] + B[1][1] * k[1]);
-//	k[3] = h * func(i, y1 + B[2][0] * k[0] + B[2][1] * k[1] + B[2][2] * k[2]);
-//	k[4] = h * func(i, y1 + B[3][0] * k[0] + B[3][1] * k[1] + B[3][2] * k[2] + B[3][3] * k[3]);
-//	k[5] = h * func(i, y1 + B[4][0] * k[0] + B[4][1] * k[1] + B[4][2] * k[2] + B[4][3] * k[3] + B[4][4] * k[4]);
-//
-//	comp TE = 0.0;
-//
-//	for (int n = 0; n < 6; n++)
-//	{
-//		y1 += CH[n] * k[n];
-//	}
-//
-//	for (int n = 0; n < 6; n++)
-//	{
-//		TE += CT[n] * k[n];
-//	}
-//
-//	*y2 = y1;
-//	*(y2 + 1) = TE;
-//
-//	return y2;
-//}
-
-//std::valarray<comp> RK45::step()
-//{
-//	std::valarray<comp> y2 = y;
-//	std::valarray<comp> k[6];
-//	
-//	k[0] = h * func(y2);
-//	k[1] = h * func(y2 + B[0][0] * k[0]);
-//	k[2] = h * func(y2 + B[1][0] * k[0] + B[1][1] * k[1]);
-//	k[3] = h * func(y2 + B[2][0] * k[0] + B[2][1] * k[1] + B[2][2] * k[2]);
-//	k[4] = h * func(y2 + B[3][0] * k[0] + B[3][1] * k[1] + B[3][2] * k[2] + B[3][3] * k[3]);
-//	k[5] = h * func(y2 + B[4][0] * k[0] + B[4][1] * k[1] + B[4][2] * k[2] + B[4][3] * k[3] + B[4][4] * k[4]);
-//
-//	TE = 0.0;
-//
-//	for (int n = 0; n < 6; n++)
-//	{
-//		y2 += CH[n] * k[n];
-//	}
-//
-//	std::valarray<comp> err(y2.size());
-//
-//	for (int n = 0; n < 6; n++)
-//	{
-//		err += CT[n] * k[n];
-//	}
-//
-//	for (int i = 0; i < err.size(); i++)
-//	{
-//		TE += std::norm(err[i]);
-//	}
-//
-//	TE = std::sqrt(TE / err.size());
-//
-//	return y2;
-//}
-
-//int RK45::full_step()
-//{
-//	int n = 0;
-//	double TE = 0.0;
-//	std::vector<comp> y2 = y;
-//
-//	do {
-//		n++;
-//		TE = 0.0;
-//
-//		for (int i = 0; i < y.size(); i++)
-//		{
-//			comp* p = step(i);
-//
-//			y2[i] = (*p);
-//			TE += std::norm(*(p + 1));
-//		}
-//
-//		TE = std::sqrt(TE / y.size());
-//
-//		if (TE <= acc)
-//		{
-//			t += h;
-//		}
-//
-//		h = 0.9 * h * std::pow(acc / TE, 1.0 / 5.0);
-//	} while (TE > acc);
-//
-//	y = y2;
-//
-//	return n;
-//}
