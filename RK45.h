@@ -12,7 +12,6 @@ public:
 
 	RK45(double step_size, double accuracy, std::valarray<comp> initial);
 
-	//virtual comp func(int i, comp y1);
 	virtual std::valarray<comp> func(std::valarray<comp> y1);
 
 	int full_step(comp factor = comp(1.0, 0.0));
@@ -35,6 +34,8 @@ protected:
 
 	std::valarray<comp> y;
 
+	void setStepSize(double step_size);
+
 private:
 
 	double t;
@@ -44,7 +45,4 @@ private:
 	static double B[5][5];
 	static double CH[6];
 	static double CT[6];
-
-	//comp* step(int i);
-	//std::valarray<comp> step();
 };
