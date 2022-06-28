@@ -2,9 +2,8 @@
 
 #include <iostream>
 
-RK45_1D::RK45_1D(double step_size, double accuracy, std::valarray<comp> initial,
-	double mu, double U)
-	: RK45(step_size, accuracy, initial), mu(mu), U(U), J(1.0)
+RK45_1D::RK45_1D(double step_size, double accuracy, std::valarray<comp> initial, double mu, double U) : 
+	RK45(step_size, accuracy, initial), mu(mu), U(U), J(1.0)
 {
 	double norm = 0.0;
 
@@ -29,7 +28,7 @@ std::valarray<comp> RK45_1D::func(std::valarray<comp> y1)
 
 	for (int i = 0; i < n; i++)
 	{
-		y2[i] = (-mu * y1[i] - J * (y1[((i-1) % n + n) % n] + y1[((i+1) % n + n) % n]) + U * y1[i] * std::norm(y[i])) / (comp(0.0, 1.0));
+		y2[i] = (-mu * y1[i] - J * (y1[((i - 1) % n + n) % n] + y1[((i + 1) % n + n) % n]) + U * y1[i] * std::norm(y[i])) / i1;
 	}
 
 	return y2;
@@ -38,12 +37,19 @@ std::valarray<comp> RK45_1D::func(std::valarray<comp> y1)
 void RK45_1D::groundState()
 {
 	double diff;
+	int n = 0;
 
 	do {
+		if (n > 1000000)
+		{
+			std::cout << "Warning: step overflow, no convergence.\n";
+			break;
+		}
+
 		diff = 0.0;
 		std::valarray<comp> y1 = y;
 
-		full_step(comp(0.0, -1.0));
+		n += full_step(comp(0.0, -1.0));
 
 		if (std::abs(mu) <= getAcc())
 		{
@@ -79,4 +85,9 @@ void RK45_1D::groundState()
 double RK45_1D::getMu() const
 {
 	return mu;
+}
+
+double RK45_1D::getU() const
+{
+	return U;
 }
