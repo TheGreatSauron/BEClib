@@ -37,12 +37,19 @@ std::valarray<comp> RK45_1D::func(std::valarray<comp> y1)
 void RK45_1D::groundState()
 {
 	double diff;
+	int n = 0;
 
 	do {
+		if (n > 1000000)
+		{
+			std::cout << "Warning: step overflow, no convergence.\n";
+			break;
+		}
+
 		diff = 0.0;
 		std::valarray<comp> y1 = y;
 
-		full_step(comp(0.0, -1.0));
+		n += full_step(comp(0.0, -1.0));
 
 		mu = mu / getNorm();
 		y /= std::sqrt(getNorm());

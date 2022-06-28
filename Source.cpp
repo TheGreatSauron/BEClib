@@ -43,13 +43,22 @@ int main()
 
 	//std::cout << rk.runTime(10, true);
 
-	std::valarray<comp> v(8);
-	v[0] = 1.0;
+	std::valarray<comp> v(200);
+	//v[0] = 1.0;
+	for (int i = 0; i < v.size(); i++)
+	{
+		v[i] = double(std::rand() % 1000) / 1000;
+	}
 
-	double args[5] = { 1.0, 1.0, 0.0, 0.0, 0.0 };
-	RK45_2D_Spin rk(0.0001, 0.000000000001, v, 2, args);
+	double args[5] = { 1.0, 1.0, 1.0, 1.0, 1.0 };
+	RK45_2D_Spin rk(0.0001, 0.000000000001, v, 10, args);
 
+	std::cout << (1 - rk.getNorm()) << " | " << rk.printNorms() << '\n';
 
+	rk.groundState();
+
+	std::cout << (1 - rk.getNorm()) << " | " << rk.printNorms() << '\n';
+	std::cout << (1 - rk.getNorm()) << " | " << rk.printPhases() << '\n';
 
 	return 0;
 }
