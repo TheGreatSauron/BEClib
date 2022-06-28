@@ -27,6 +27,9 @@
     <ClCompile Include="RK45_1D_Spin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RK45_2D_Spin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RK45.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RK45_1D_Spin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RK45_2D_Spin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -6,6 +6,7 @@
 #include <valarray>
 
 typedef std::complex<double> comp;
+#define i1 comp(0.0, 1.0)
 
 class RK45 {
 public:
