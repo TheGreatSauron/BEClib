@@ -56,7 +56,7 @@ std::valarray<comp> RK45_2D_Spin::func(std::valarray<comp> y1)
 				- i1 * y1[((i + 2 * width - 2 - 1) % n + n) % n] - i1 * y1[((i - 2 * width + 2 - 1) % n + n) % n]);
 		}
 
-		y2[i] = (-mu * y1[i] - J * (y1[((i - 2) % n + n) % n] + y1[((i + 2) % n + n) % n]) + U * y1[i] * (std::norm(y[i]) + std::norm(y[i + 1]))) / (comp(0.0, 1.0));
+		y2[i] = (H1 + H2 + H3 + Hz + Hd + Hso) / i1;
 	}
 
 	return y2;
