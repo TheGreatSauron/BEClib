@@ -51,10 +51,23 @@ void RK45_1D::groundState()
 
 		n += full_step(comp(0.0, -1.0));
 
-		mu = mu / getNorm();
-		y /= std::sqrt(getNorm());
+		if (std::abs(mu) <= getAcc())
+		{
+			mu = -mu/std::abs(mu);
+		}
 
-		//std::cout << getMu() << ' ' << (1 - getNorm()) << " | " << printNorms() << '\n';
+		if (mu > 0)
+		{
+			mu = mu / getNorm();
+		}
+		else
+		{ 
+			mu = mu * getNorm();
+		}
+
+		//std::cout << func(y1)[0] << ' ' << getMu() << ' ' << (1 - getNorm()) << " | " << printNorms() << '\n';
+
+		y /= std::sqrt(getNorm());
 
 		y1 = y - y1;
 
