@@ -5,6 +5,7 @@
 RK45_1D::RK45_1D(double step_size, double accuracy, std::valarray<comp> initial, double mu, double U) : 
 	RK45(step_size, accuracy, initial), mu(mu), U(U), J(1.0)
 {
+	// Ensure the initial wave-function is normalized
 	double norm = 0.0;
 
 	for (int i = 0; i < y.size(); i++)
@@ -24,14 +25,15 @@ RK45_1D::RK45_1D(double step_size, double accuracy, std::valarray<comp> initial,
 std::valarray<comp> RK45_1D::func(std::valarray<comp> y1)
 {
 	int n = y1.size();
-	std::valarray<comp> y2 = y1;
+	std::valarray<comp> der = y1;
 
+	// Calculate derivative for every term
 	for (int i = 0; i < n; i++)
 	{
-		y2[i] = (-mu * y1[i] - J * (y1[((i - 1) % n + n) % n] + y1[((i + 1) % n + n) % n]) + U * y1[i] * std::norm(y[i])) / i1;
+		der[i] = (-mu * y1[i] - J * (y1[((i - 1) % n + n) % n] + y1[((i + 1) % n + n) % n]) + U * y1[i] * std::norm(y[i])) / i1;
 	}
 
-	return y2;
+	return der;
 }
 
 void RK45_1D::groundState()
@@ -40,6 +42,8 @@ void RK45_1D::groundState()
 	int n = 0;
 
 	do {
+		// Ensure that the imaginary time propagation eventually ends,
+		// limit is arbitrary
 		if (n > 1000000)
 		{
 			std::cout << "Warning: step overflow, no convergence.\n";
@@ -51,11 +55,13 @@ void RK45_1D::groundState()
 
 		n += full_step(comp(0.0, -1.0));
 
+		// Flip the sign on mu and reset it if mu becomes too small
 		if (std::abs(mu) <= getAcc())
 		{
 			mu = -mu/std::abs(mu);
 		}
 
+		// Rescale mu every step
 		if (mu > 0)
 		{
 			mu = mu / getNorm();
@@ -67,8 +73,10 @@ void RK45_1D::groundState()
 
 		//std::cout << func(y1)[0] << ' ' << getMu() << ' ' << (1 - getNorm()) << " | " << printNorms() << '\n';
 
+		// Ensure normalization
 		y /= std::sqrt(getNorm());
 
+		// Calculate difference
 		y1 = y - y1;
 
 		for (int i = 0; i < y1.size(); i++)

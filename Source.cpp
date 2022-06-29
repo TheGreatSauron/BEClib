@@ -7,15 +7,6 @@
 #include "RK45_1D_Spin.h"
 #include "RK45_2D_Spin.h"
 
-typedef std::complex<double> comp;
-
-std::complex<double> dpdt(std::complex<double> psi, std::complex<double> psi_1, double psi_2, double Q[3])
-{
-	std::complex<double> sum = (Q[0] + Q[2]) * psi + Q[1] * (psi_1 + psi_2) + 2 * Q[2] * psi * std::norm(psi);
-
-	return sum;
-}
-
 int main()
 {
 	//std::valarray<comp> v(4);
