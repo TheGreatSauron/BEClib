@@ -31,6 +31,8 @@ public:
 	std::valarray<comp> getVector() const;
 	// Returns the step size h
 	double getStepSize() const;
+	// Returns the norms of all individual positions
+	std::valarray<double> getNorms() const;
 	// Returns the total norm of the whole vector
 	double getNorm() const;
 	// Returns the current time

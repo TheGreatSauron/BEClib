@@ -108,6 +108,18 @@ double RK45::getStepSize() const
 	return h;
 }
 
+std::valarray<double> RK45::getNorms() const
+{
+	std::valarray<double> norms(y.size());
+
+	for (int i = 0; i < y.size(); i++)
+	{
+		norms[i] = std::norm(y[i]);
+	}
+
+	return norms;
+}
+
 void RK45::setAcc(double accuracy)
 {
 	acc = accuracy;
