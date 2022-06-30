@@ -10,7 +10,7 @@ class RK45_1D_Spin :
 public:
 
      // Standard constructor
-    RK45_1D_Spin(double step_size, double accuracy, std::valarray<comp> initial, double mu, double U);
+    RK45_1D_Spin(double step_size, double accuracy, std::valarray<comp> initial, double norm, double mu, double U);
 
     // Override of derivative function
     virtual std::valarray<comp> func(std::valarray<comp> y1) override;

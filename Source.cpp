@@ -41,7 +41,7 @@ int main()
 		v[i] = double(std::rand() % 1000) / 1000;
 	}
 
-	double args[5] = { 1.0, 1.0, 1.0, 1.0, 1.0 };
+	double args[6] = { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 };
 	RK45_2D_Spin rk(0.0001, 0.000000000001, v, 10, args);
 
 	std::cout << (1 - rk.getNorm()) << " | " << rk.printNorms() << '\n';

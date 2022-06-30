@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-RK45_2D_Spin::RK45_2D_Spin(double step_size, double accuracy, std::valarray<comp> initial, unsigned int x, double args[5]) :
-	RK45_1D(step_size, accuracy, initial, args[0], args[1]), width(x), tz(args[2]), tso(args[3]), Mz(args[4])
+RK45_2D_Spin::RK45_2D_Spin(double step_size, double accuracy, std::valarray<comp> initial, unsigned int x, double args[6]) :
+	RK45_1D(step_size, accuracy, initial, args[0], args[1], args[2]), width(x), tz(args[3]), tso(args[4]), Mz(args[5])
 {
 	// Ensure the lattice properly fits the given dimensions
 	if (y.size() % width != 0)

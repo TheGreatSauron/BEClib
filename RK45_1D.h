@@ -10,7 +10,7 @@ class RK45_1D :
 public:
 
 	// Standard constructor
-	RK45_1D(double step_size, double accuracy, std::valarray<comp> initial, double mu, double U);
+	RK45_1D(double step_size, double accuracy, std::valarray<comp> initial, double norm, double mu, double U);
 
 	// Override of function to be integrated -> [H psi]/i
 	virtual std::valarray<comp> func(std::valarray<comp> y1) override;
@@ -27,7 +27,7 @@ public:
 protected:
 
 	// Constants
-	double mu, U, J;
+	double mu, U, J, N;
 };
 
 #endif // RK45_1D_H
