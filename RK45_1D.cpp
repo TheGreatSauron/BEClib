@@ -2,22 +2,22 @@
 
 #include <iostream>
 
-RK45_1D::RK45_1D(double step_size, double accuracy, std::valarray<comp> initial, double mu, double U) : 
-	RK45(step_size, accuracy, initial), mu(mu), U(U), J(1.0)
+RK45_1D::RK45_1D(double step_size, double accuracy, std::valarray<comp> initial, double norm, double mu, double U) :
+	RK45(step_size, accuracy, initial), mu(mu), U(U), J(1.0), N(norm)
 {
 	// Ensure the initial wave-function is normalized
-	double norm = 0.0;
+	double sum = 0.0;
 
 	for (int i = 0; i < y.size(); i++)
 	{
-		norm += std::norm(y[i]);
+		sum += std::norm(y[i]);
 	}
 
-	if (norm != 0.0)
+	if (sum != 0.0)
 	{
 		for (int i = 0; i < y.size(); i++)
 		{
-			y[i] /= std::sqrt(norm);
+			y[i] *= std::sqrt(N/sum);
 		}
 	}
 }
@@ -64,17 +64,17 @@ void RK45_1D::groundState()
 		// Rescale mu every step
 		if (mu > 0)
 		{
-			mu = mu / getNorm();
+			mu = mu / (getNorm()/N);
 		}
 		else
 		{ 
-			mu = mu * getNorm();
+			mu = mu * (getNorm()/N);
 		}
 
 		//std::cout << func(y1)[0] << ' ' << getMu() << ' ' << (1 - getNorm()) << " | " << printNorms() << '\n';
 
 		// Ensure normalization
-		y /= std::sqrt(getNorm());
+		y *= std::sqrt(N/getNorm());
 
 		// Calculate difference
 		y1 = y - y1;
@@ -85,7 +85,7 @@ void RK45_1D::groundState()
 		}
 
 		diff = std::sqrt(diff / y1.size());
-	} while (diff > getAcc());
+	} while (diff > (getAcc() * 1000));
 
 	setTime(0.0);
 }

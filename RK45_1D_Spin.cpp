@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-RK45_1D_Spin::RK45_1D_Spin(double step_size, double accuracy, std::valarray<comp> initial, double mu, double U) :
-    RK45_1D(step_size, accuracy, initial, mu, U)
+RK45_1D_Spin::RK45_1D_Spin(double step_size, double accuracy, std::valarray<comp> initial, double norm, double mu, double U) :
+    RK45_1D(step_size, accuracy, initial, norm, mu, U)
 {
 	// Ensure the vector doesn't have an odd number of entries
 	if (y.size() % 2 != 0)
