@@ -38,37 +38,38 @@ int main()
 	int L = 60;
 
 	std::valarray<comp> v(2*L*L);
-	//v[0] = 1.0;
+	v[0] = 1.0;
 	for (int i = 0; i < v.size(); i++)
 	{
-		v[i] = double(std::rand() % 1000) / 1000;
+		v[i] = double(std::rand() % 10000) / 10000;
 	}
-
-	double args[10][6] = {
-		{ 1.0 * L * L, 1.0, 0.0, 0.1, 0.1, 0.2 }, 
-		{ 2.0 * L * L, 1.0, 2.0, 0.1, 0.1, 0.2 },
-		{ 5.0 * L * L, 1.0, 2.0, 0.1, 0.1, 0.2 },
-		{ 2.0 * L * L, 1.0, 5.0, 0.1, 0.1, 0.2 },
-		{ 5.0 * L * L, 1.0, 5.0, 0.1, 0.1, 0.2 },
-		{ 1.0 * L * L, 1.0, 0.0, 0.1, 0.1, 0.5 },
-		{ 2.0 * L * L, 1.0, 2.0, 0.1, 0.1, 0.5 },
-		{ 5.0 * L * L, 1.0, 2.0, 0.1, 0.1, 0.5 },
-		{ 2.0 * L * L, 1.0, 5.0, 0.1, 0.1, 0.5 },
-		{ 5.0 * L * L, 1.0, 5.0, 0.1, 0.1, 0.5 } };
+	//for (int i = 0; i < v.size(); i++)
+	//{
+	//	if (i % 2 == 1)
+	//	{
+	//		v[i] = 0.001;
+	//	}
+	//	else
+	//	{
+	//		v[i] = 1.0;
+	//	}
+	//}
 	
-	for (int n = 0; n < 10; n++)
+	for (int n = 0; n < 9; n++)
 	{
-		RK45_2D_Spin rk(0.0001, 0.000000000001, v, L, args[n]);
+		double args[6] = { 2.0 * L * L, 1.0, (n / 3), 0.1, 0.1, -0.401 + (0.001 * (n % 3)) };
+
+		RK45_2D_Spin rk(0.0001, 0.000000000001, v, L, args);
 
 		rk.groundState();
 
 		std::ofstream file;
 		std::string filename = (
-			"n(" + std::to_string(args[n][0] / (L * L)) +
-			")_U(" + std::to_string(args[n][2]) +
-			")_tz(" + std::to_string(args[n][3]) +
-			")_tso(" + std::to_string(args[n][4]) +
-			")_Mz(" + std::to_string(args[n][5]) + ").txt");
+			"n(" + std::to_string(args[0] / (L * L)) +
+			")_U(" + std::to_string(args[2]) +
+			")_tz(" + std::to_string(args[3]) +
+			")_tso(" + std::to_string(args[4]) +
+			")_Mz(" + std::to_string(args[5]) + ").txt");
 		//std::string filename = "Test.txt";
 
 		std::cout << filename << '\n';
