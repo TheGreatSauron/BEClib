@@ -35,13 +35,15 @@ int main()
 
 	//std::cout << rk.runTime(10, true);
 
+
 	int L = 60;
 
 	std::valarray<comp> v(2*L*L);
 	v[0] = 1.0;
 	for (int i = 0; i < v.size(); i++)
 	{
-		v[i] = double(std::rand() % 10000) / 10000;
+		//v[i] = double(std::rand() % 10000) / 10000;
+		v[i] = 1.0;
 	}
 	//for (int i = 0; i < v.size(); i++)
 	//{
@@ -55,9 +57,9 @@ int main()
 	//	}
 	//}
 	
-	for (int n = 0; n < 9; n++)
+	for (int n = 0; n < 2; n++)
 	{
-		double args[6] = { 2.0 * L * L, 1.0, (n / 3), 0.1, 0.1, -0.401 + (0.001 * (n % 3)) };
+		double args[6] = { 1.0 * L * L, 1.0, 0.0, 0.1, 0.1, -0.5 + 0.2*n };
 
 		RK45_2D_Spin rk(0.0001, 0.000000000001, v, L, args);
 
@@ -74,12 +76,23 @@ int main()
 
 		std::cout << filename << '\n';
 		file.open(filename);
+		file.precision(18);
 
 		file << rk.getMu() << '\n';
+		file << std::scientific;
 
 		for (int i = 0; i < rk.getVector().size(); i++)
 		{
-			file << rk.getVector()[i] << ' ';
+			comp z = rk.getVector()[i];
+
+			if (z.imag() >= 0)
+			{
+				file << "(" << z.real() << "+" << z.imag() << "j) ";
+			}
+			else
+			{
+				file << "(" << z.real() << "-" << z.imag() << "j) ";
+			}
 		}
 
 		file.close();

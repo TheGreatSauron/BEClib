@@ -34,7 +34,7 @@ std::valarray<comp> RK45_2D_Spin::func(std::valarray<comp> y1)
 
 		// First two terms are spin independant
 		H1 = -mu * y1[i];
-		H2 = -J * (y1[((i - 2) % n + n) % n] + y1[((i + 2) % n + n) % n]
+		H2 = -J * std::polar(1.0, M_PI) * (y1[((i - 2) % n + n) % n] + y1[((i + 2) % n + n) % n]
 			+ y1[((i - 2 * width) % n + n) % n] + y1[((i + 2 * width) % n + n) % n]);
 
 		// Even spin up, odd spin down

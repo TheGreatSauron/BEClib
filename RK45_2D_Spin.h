@@ -1,6 +1,9 @@
 #ifndef RK45_2D_SPIN_H
 #define RK45_2D_SPIN_H
 
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 #include "RK45_1D.h"
 
 // Extension of standard Bose-Hubbard model for 2D, two component condensate
