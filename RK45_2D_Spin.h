@@ -1,9 +1,6 @@
 #ifndef RK45_2D_SPIN_H
 #define RK45_2D_SPIN_H
 
-#define _USE_MATH_DEFINES
-#include <cmath>
-
 #include "RK45_1D.h"
 
 // Extension of standard Bose-Hubbard model for 2D, two component condensate
@@ -13,8 +10,8 @@ class RK45_2D_Spin :
 public:
 
     // Standard constructor, x sets width of lattice in x-direction,
-    // args array is {N, mu, U, tz, tso, Mz} in that order
-    RK45_2D_Spin(double step_size, double accuracy, std::valarray<comp> initial, unsigned int L, double args[6]);
+    // args array is {N, mu, U, tz, tso, Mz, kx, ky} in that order
+    RK45_2D_Spin(double step_size, double accuracy, std::valarray<comp> initial, unsigned int L, double args[8]);
 
     // Override of the derivative function -> [H psi]/i,
     // includes multiple new terms including spin-orbit coupling
@@ -26,7 +23,7 @@ private:
     unsigned int width;
 
     // Constants
-    double tz, tso, Mz;
+    double tz, tso, Mz, kx, ky;
 };
 
 // Vector has first component on even indexes and second component on odd indexes, each row is listed sequentially

@@ -44,7 +44,7 @@ void RK45_1D::groundState()
 	do {
 		// Ensure that the imaginary time propagation eventually ends,
 		// limit is arbitrary
-		if (n > 50000)
+		if (n > 20000)
 		{
 			std::cout << "Warning: step overflow, no convergence.\n";
 			break;
@@ -85,7 +85,7 @@ void RK45_1D::groundState()
 		}
 
 		diff = std::sqrt(diff / y1.size());
-	} while (diff > (getAcc() * 10000));
+	} while (diff > (getAcc() * 1000000));
 
 	setTime(0.0);
 }

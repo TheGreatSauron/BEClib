@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-RK45_2D_Spin::RK45_2D_Spin(double step_size, double accuracy, std::valarray<comp> initial, unsigned int L, double args[6]) :
-	RK45_1D(step_size, accuracy, initial, args[0], args[1], args[2]), width(L), tz(args[3]), tso(args[4]), Mz(args[5])
+RK45_2D_Spin::RK45_2D_Spin(double step_size, double accuracy, std::valarray<comp> initial, unsigned int L, double args[8]) :
+	RK45_1D(step_size, accuracy, initial, args[0], args[1], args[2]), width(L), tz(args[3]), tso(args[4]), Mz(args[5]), kx(args[6]), ky(args[7])
 {
 	// Ensure the lattice properly fits the given dimensions
 	if (y.size() % width != 0)
@@ -34,8 +34,8 @@ std::valarray<comp> RK45_2D_Spin::func(std::valarray<comp> y1)
 
 		// First two terms are spin independant
 		H1 = -mu * y1[i];
-		H2 = -J * std::polar(1.0, M_PI) * (y1[((i - 2) % n + n) % n] + y1[((i + 2) % n + n) % n]
-			+ y1[((i - 2 * width) % n + n) % n] + y1[((i + 2 * width) % n + n) % n]);
+		H2 = -J * (std::polar(1.0, kx) * (y1[((i - 2) % n + n) % n] + y1[((i + 2) % n + n) % n])
+			+ std::polar(1.0, ky) * (y1[((i - 2 * width) % n + n) % n] + y1[((i + 2 * width) % n + n) % n]));
 
 		// Even spin up, odd spin down
 		// Index +1 means flipped down, index -1 means flipped up

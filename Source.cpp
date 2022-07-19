@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include <iostream>
 #include <complex>
 #include <valarray>
@@ -57,9 +59,10 @@ int main()
 	//	}
 	//}
 	
-	for (int n = 0; n < 2; n++)
+	for (int n = 0; n < 1; n++)
 	{
-		double args[6] = { 1.0 * L * L, 1.0, 0.0, 0.1, 0.1, -0.5 + 0.2*n };
+		//double args[8] = { 1.0 * L * L, 1.0, 0.0, 0.1, 0.1, 0.2, -M_PI + (n%5) * (M_PI/2.0), -M_PI + (n/5) * (M_PI / 2.0) };
+		double args[8] = { 1.0, 1.0, 0.0, 0.1, 0.1, 0.2, M_PI, M_PI };
 
 		RK45_2D_Spin rk(0.0001, 0.000000000001, v, L, args);
 
@@ -71,7 +74,10 @@ int main()
 			")_U(" + std::to_string(args[2]) +
 			")_tz(" + std::to_string(args[3]) +
 			")_tso(" + std::to_string(args[4]) +
-			")_Mz(" + std::to_string(args[5]) + ").txt");
+			")_Mz(" + std::to_string(args[5]) + 
+			")_kx(" + std::to_string(args[6]) +
+			")_ky(" + std::to_string(args[7]) +
+			").txt");
 		//std::string filename = "Test.txt";
 
 		std::cout << filename << '\n';
@@ -91,7 +97,7 @@ int main()
 			}
 			else
 			{
-				file << "(" << z.real() << "-" << z.imag() << "j) ";
+				file << "(" << z.real() << "-" << std::abs(z.imag()) << "j) ";
 			}
 		}
 
