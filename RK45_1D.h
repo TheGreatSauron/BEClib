@@ -23,6 +23,8 @@ public:
 	double getMu() const;
 	// Returns U
 	double getU() const;
+	// Returns N
+	double getN() const;
 
 protected:
 

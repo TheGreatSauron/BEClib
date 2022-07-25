@@ -38,54 +38,50 @@ std::valarray<comp> RK45_1D::func(std::valarray<comp> y1)
 
 void RK45_1D::groundState()
 {
-	double diff;
+	double mu_diff, norm_diff;
+	double param = getAcc() * 1000.0;
 	int n = 0;
 
 	do {
 		// Ensure that the imaginary time propagation eventually ends,
 		// limit is arbitrary
-		if (n > 20000)
+		if (n > 50000)
 		{
 			std::cout << "Warning: step overflow, no convergence.\n";
 			break;
 		}
 
-		diff = 0.0;
-		std::valarray<comp> y1 = y;
+		norm_diff = 0.0;
+		mu_diff = 0.0;
+		double old_mu = mu;
 
 		n += full_step(comp(0.0, -1.0));
 
 		// Flip the sign on mu and reset it if mu becomes too small
-		if (std::abs(mu) <= getAcc())
+		if (std::abs(mu) <= std::pow(10.0, -6))
 		{
-			mu = -mu/std::abs(mu);
+			mu = -mu / std::abs(mu);
 		}
 
 		// Rescale mu every step
 		if (mu > 0)
 		{
-			mu = mu / (getNorm()/N);
+			mu = mu / (getNorm() / N);
 		}
 		else
-		{ 
-			mu = mu * (getNorm()/N);
+		{
+			mu = mu * (getNorm() / N);
 		}
+
+		mu_diff = std::abs(mu - old_mu);
+		norm_diff = std::abs(1.0 - (getNorm() / N));
 
 		//std::cout << func(y1)[0] << ' ' << getMu() << ' ' << (1 - getNorm()) << " | " << printNorms() << '\n';
 
 		// Ensure normalization
-		y *= std::sqrt(N/getNorm());
+		y *= std::sqrt(N / getNorm());
 
-		// Calculate difference
-		y1 = y - y1;
-
-		for (int i = 0; i < y1.size(); i++)
-		{
-			diff += std::norm(y1[i]);
-		}
-
-		diff = std::sqrt(diff / y1.size());
-	} while (diff > (getAcc() * 1000000));
+	} while ((norm_diff > param) || (mu_diff > param));
 
 	setTime(0.0);
 }
@@ -98,4 +94,9 @@ double RK45_1D::getMu() const
 double RK45_1D::getU() const
 {
 	return U;
+}
+
+double RK45_1D::getN() const
+{
+	return N;
 }

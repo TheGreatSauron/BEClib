@@ -41,28 +41,27 @@ int main()
 	int L = 60;
 
 	std::valarray<comp> v(2*L*L);
-	v[0] = 1.0;
+	//v[0] = 1.0;
 	for (int i = 0; i < v.size(); i++)
 	{
 		//v[i] = double(std::rand() % 10000) / 10000;
-		v[i] = 1.0;
+		//v[i] = 1.0;
+		if (i % 2 == 1)
+		{
+			v[i] = 0.001;
+		}
+		else
+		{
+			v[i] = 1.0;
+		}
 	}
-	//for (int i = 0; i < v.size(); i++)
-	//{
-	//	if (i % 2 == 1)
-	//	{
-	//		v[i] = 0.001;
-	//	}
-	//	else
-	//	{
-	//		v[i] = 1.0;
-	//	}
-	//}
 	
 	for (int n = 0; n < 1; n++)
 	{
 		//double args[8] = { 1.0 * L * L, 1.0, 0.0, 0.1, 0.1, 0.2, -M_PI + (n%5) * (M_PI/2.0), -M_PI + (n/5) * (M_PI / 2.0) };
-		double args[8] = { 1.0, 1.0, 0.0, 0.1, 0.1, 0.2, M_PI, M_PI };
+		//double args[8] = { 1.0, 1.0, 0.0, 0.1, 0.1, 0.2, M_PI, M_PI };
+		//double args[8] = { 1.0*L*L, -1.0, 0.0, 0.1, 0.1, 0.2, M_PI, M_PI };
+		double args[8] = { 1.0 * L * L, 1.0, 1.0, 0.0, 0.0, 0.0, 0, 0 };
 
 		RK45_2D_Spin rk(0.0001, 0.000000000001, v, L, args);
 
