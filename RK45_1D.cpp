@@ -39,13 +39,13 @@ std::valarray<comp> RK45_1D::func(std::valarray<comp> y1)
 void RK45_1D::groundState()
 {
 	double mu_diff, norm_diff;
-	double param = getAcc() * 1000.0;
+	double param = getAcc() * 1000000.0;
 	int n = 0;
 
 	do {
 		// Ensure that the imaginary time propagation eventually ends,
 		// limit is arbitrary
-		if (n > 50000)
+		if (n > 10000)
 		{
 			std::cout << "Warning: step overflow, no convergence.\n";
 			break;

@@ -20,21 +20,21 @@ int main()
 	//		v[i] = 1.0;
 	//	}
 	//}
-
+	//
 	//RK45_1D_Spin rk(0.0001, 0.000000000001, v, 1.0, 1.0);
-
+	//
 	//std::cout << rk.getTime() << ' ' << (1 - rk.getNorm()) << " | " << rk.printNorms() << '\n';
-
+	//
 	//while (rk.getTime() <= 5.0)
 	//{
 	//	int n = rk.full_step();
 	//
 	//	std::cout << rk.getTime() << ' ' << std::abs(1 - rk.getNorm()) << " | " << rk.printNorms() << '\n';
 	//}
-
+	//
 	//rk.groundState();
 	//std::cout << rk.getMu() << ' ' << (1 - rk.getNorm()) << " | " << rk.printNorms() << '\n';
-
+	//
 	//std::cout << rk.runTime(10, true);
 
 
@@ -48,11 +48,11 @@ int main()
 		//v[i] = 1.0;
 		if (i % 2 == 1)
 		{
-			v[i] = 0.001;
+			v[i] = 0.0;
 		}
 		else
 		{
-			v[i] = 1.0;
+			v[i] = std::polar(1.0, M_PI * (((i /2)%60) + ((i /2)/60)));
 		}
 	}
 	
@@ -60,8 +60,8 @@ int main()
 	{
 		//double args[8] = { 1.0 * L * L, 1.0, 0.0, 0.1, 0.1, 0.2, -M_PI + (n%5) * (M_PI/2.0), -M_PI + (n/5) * (M_PI / 2.0) };
 		//double args[8] = { 1.0, 1.0, 0.0, 0.1, 0.1, 0.2, M_PI, M_PI };
-		//double args[8] = { 1.0*L*L, -1.0, 0.0, 0.1, 0.1, 0.2, M_PI, M_PI };
-		double args[8] = { 1.0 * L * L, 1.0, 1.0, 0.0, 0.0, 0.0, 0, 0 };
+		double args[8] = { 1.0*L*L, 1.0, 0.0, 0.1, 0.1, 0.2, M_PI, M_PI };
+		//double args[8] = { 1.0 * L * L, 1.0, 0.0, (n * 0.1/5.0), (n * 0.1/5.0), (n * 0.2/5.0), M_PI, M_PI};
 
 		RK45_2D_Spin rk(0.0001, 0.000000000001, v, L, args);
 
