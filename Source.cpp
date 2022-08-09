@@ -46,13 +46,25 @@ int main()
 	{
 		//v[i] = double(std::rand() % 10000) / 10000;
 		//v[i] = 1.0;
+
+		// Analytical ground-state (Mz < 4*tz)
 		if (i % 2 == 1)
 		{
 			v[i] = 0.0;
 		}
 		else
 		{
-			v[i] = std::polar(1.0, M_PI * (((i /2)%60) + ((i /2)/60)));
+			v[i] = std::polar(1.0, M_PI * (((i /2)%L) + ((i /2)/L)));
+		}
+
+		// Analytical ground-state (Mz > 4*tz)
+		if (i % 2 == 1)
+		{
+			v[i] = 0.0;
+		}
+		else
+		{
+			v[i] = std::polar(1.0, M_PI * ((((i-1) / 2) % L) + (((i - 1) / 2) / L)));
 		}
 	}
 	
