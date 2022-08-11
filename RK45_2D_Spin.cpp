@@ -68,3 +68,31 @@ std::valarray<comp> RK45_2D_Spin::func(std::valarray<comp> y1)
 
 	return der;
 }
+
+void RK45_2D_Spin::setArgs(double args[8])
+{
+	N = args[0];
+	mu = args[1];
+	U = args[2];
+	tz = args[3];
+	tso = args[4];
+	Mz = args[5];
+	kx = args[6];
+	ky = args[7];
+
+	// Ensure the wave-function is normalized
+	double sum = 0.0;
+
+	for (int i = 0; i < y.size(); i++)
+	{
+		sum += std::norm(y[i]);
+	}
+
+	if (sum != 0.0)
+	{
+		for (int i = 0; i < y.size(); i++)
+		{
+			y[i] *= std::sqrt(N / sum);
+		}
+	}
+}

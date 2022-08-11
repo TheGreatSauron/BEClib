@@ -17,7 +17,11 @@ public:
     // includes multiple new terms including spin-orbit coupling
     virtual std::valarray<comp> func(std::valarray<comp> y1) override;
 
-private:
+    // Sets all arguments for the Hamiltonian, and renormalizes the vector
+    // args array is {N, mu, U, tz, tso, Mz, kx, ky} in that order
+    void setArgs(double args[8]);
+
+protected:
 
     // The width of the lattice
     unsigned int width;
