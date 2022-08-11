@@ -47,6 +47,8 @@ public:
 	void setAcc(double accuracy);
 	// Sets a new time
 	void setTime(double time);
+	// Sets a new vector
+	void setVector(std::valarray<comp> y2);
 
 	// Returns a string of the norms of all terms in the vector
 	std::string printNorms() const;

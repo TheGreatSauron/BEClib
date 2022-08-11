@@ -39,7 +39,7 @@ std::valarray<comp> RK45_1D::func(std::valarray<comp> y1)
 void RK45_1D::groundState()
 {
 	double mu_diff, norm_diff;
-	double param = getAcc() * 1000000.0;
+	double param = getAcc() * 10000.0;
 	int n = 0;
 
 	do {

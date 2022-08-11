@@ -134,6 +134,11 @@ void RK45::setTime(double time)
 	return;
 }
 
+void RK45::setVector(std::valarray<comp> y2)
+{
+	y = y2;
+}
+
 std::string RK45::printNorms() const
 {
 	std::string str = "";
