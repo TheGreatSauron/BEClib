@@ -1,3 +1,11 @@
 #pragma once
 
-// Code here
+namespace RK
+{
+
+inline int one()
+{
+	return 1;
+}
+
+}
