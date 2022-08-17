@@ -9,7 +9,10 @@
 
 int main()
 {
-	int L = 60;
+	int L = 60;	
+	int len_args = 2;
+	double dt = 1e-4;
+	double acc = 1e-12;
 
 	std::valarray<comp> initial(2*L*L);
 	//initial[0] = 1.0;
@@ -40,7 +43,7 @@ int main()
 	}
 	
 	double args[8] = { 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-	RK45_2D_Spin rk(0.0001, 0.000000000001, initial, L, args);
+	RK45_2D_Spin rk(dt, acc, initial, L, args);
 
 	for (int n = 0; n < 6; n++)
 	{
