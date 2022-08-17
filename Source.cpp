@@ -5,10 +5,7 @@
 #include <valarray>
 #include <fstream>
 
-#include "RK45.h"
-#include "RK45_1D.h"
-#include "RK45_1D_Spin.h"
-#include "RK45_2D_Spin.h"
+#include "Bose_Hubbard_RK45.h"
 
 int main()
 {
