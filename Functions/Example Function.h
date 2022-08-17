@@ -1,6 +1,6 @@
 #pragma once
 
-namespace RK
+namespace rk
 {
 
 inline int one()
