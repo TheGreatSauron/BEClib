@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 		rk.groundState();
 
 		std::ofstream file;
-		std::string filename = ("Data/G_L(" + std::to_string(L) +
+		std::string filename = ("../Data/G_L(" + std::to_string(L) +
 			                    ")_n(" + std::to_string(args[n][0] / (L * L)) +
 			                    ")_U(" + std::to_string(args[n][2]) +
 			                    ")_tz(" + std::to_string(args[n][3]) +
@@ -87,8 +87,6 @@ int main(int argc, char *argv[])
 				file << "(" << z.real() << "-" << std::abs(z.imag()) << "j) "<< '\n';
 			}
 		}
-
-
 		file.close();
 		
 // =============================================================================
