@@ -73,9 +73,9 @@ int main(int argc, char *argv[])
 
 		std::cout << filename << '\n';
 		file.open(filename);
-        file << std::scientific;
+        	file << std::scientific;
 
-        for (int i = 0; i < rk.getVector().size(); i++)
+        	for (int i = 0; i < rk.getVector().size(); i++)
 		{
 			comp z = rk.getVector()[i];
 			if (z.imag() >= 0)
