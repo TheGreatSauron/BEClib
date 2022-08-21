@@ -1,6 +1,6 @@
 #pragma once
 
-namespace rk
+namespace bec
 {
 
 inline int one()
