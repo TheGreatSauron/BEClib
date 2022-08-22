@@ -11,7 +11,7 @@ int main()
 {
 	int L = 60;
 
-	std::valarray<comp> initial(2*L*L);
+	std::valarray<bec::comp> initial(2*L*L);
 	//initial[0] = 1.0;
 	for (int i = 0; i < initial.size(); i++)
 	{
@@ -40,7 +40,7 @@ int main()
 	}
 	
 	double args[8] = { 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-	RK45_2D_Spin rk(0.0001, 0.000000000001, initial, L, args);
+	bec::RK45_2D_Spin rk(0.0001, 0.000000000001, initial, L, args);
 
 	for (int n = 0; n < 6; n++)
 	{
@@ -77,7 +77,7 @@ int main()
 
 		for (int i = 0; i < rk.getVector().size(); i++)
 		{
-			comp z = rk.getVector()[i];
+			bec::comp z = rk.getVector()[i];
 
 			if (z.imag() >= 0)
 			{

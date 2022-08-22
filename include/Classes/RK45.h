@@ -12,7 +12,9 @@ namespace bec
 // Define complex type as comp
 typedef std::complex<double> comp;
 // Define imaginary unit macro
+#ifndef i1
 #define i1 comp(0.0, 1.0)
+#endif
 
 // Class which handles base RK45 functions, inherited for particular5 problems and further applications
 class RK45 {
