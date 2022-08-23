@@ -8,10 +8,15 @@
 #include <time.h>
 
 #include <armadillo>
-#define QICLIB_DONT_USE_NLOPT
-#include <QIClib>
-//#include "Bose_Hubbard_RK45.h"
+//#include "../../include/Bose_Hubbard_RK45.h"
 #include <BEClib>
+
+// Define complex type as comp (equivalent to arma::cx_double)
+typedef std::complex<double> comp;
+// Define imaginary unit macro
+#ifndef i1
+#define i1 comp(0.0, 1.0)
+#endif
 
 //using namespace std;
 //using namespace arma;
@@ -34,10 +39,10 @@ void para_range(int n1, int n2, int &isize, int &irank, int &istart, int &iend)
 int main(int argc, char *argv[])
 {
     // Parameters
-    int L = 60;
+    int L = 6;
     int len_args = 2;
-    double dt = 1e-3;
-    double acc = 1e-6;
+    double dt = 1e-2;
+    double acc = 1e-2;
 
     // Initial state
     std::valarray<comp> v(2*L*L);
@@ -80,11 +85,11 @@ int main(int argc, char *argv[])
             comp z = rk.getVector()[i];
             if (z.imag() >= 0)
             {
-                file << "(" << z.real() << "+" << z.imag() << "j) "<< '\n';
+                file << "(" << z.real() << "+" << z.imag() << "j) "<< "\n";
             }
             else
             {
-                file << "(" << z.real() << "-" << std::abs(z.imag()) << "j) "<< '\n';
+                file << "(" << z.real() << "-" << std::abs(z.imag()) << "j) "<< "\n";
             }
         }
         file.close();
@@ -92,15 +97,25 @@ int main(int argc, char *argv[])
 // =============================================================================
 // Code to calculate Bogoliubov excitations and non-condensate densities
 
-        bec::noncondensate(rk.getVector())  // This function does not exist as of now
+//        bec::noncondensate(rk.getVector())  // This function does not exist as of now
         
 // =============================================================================
 // Code to re-calculate condensate density again using non-condensate densities
 
-        bec::condensate(non-condensate density)  // This function does not exist as of now
+//        bec::condensate(non-condensate density)  // This function does not exist as of now
 
 // =============================================================================
 // Code to check convergence etc.
+
+        arma::cx_mat Ham(2,2);
+        Ham = bec::H_sp("Sq", 0.1, 0.1, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0);        
+        arma::cx_vec eigval;
+        arma::cx_mat eigvec;
+        arma::eig_gen(eigval, eigvec, Ham);
+        
+        Ham.print();
+        eigvec.print();
+        eigval.print();
         
 // =============================================================================
     }
