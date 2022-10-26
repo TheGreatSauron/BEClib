@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
         Ham = bec::H_sp("Sq", 0.1, 0.1, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0);        
         arma::cx_vec eigval;
         arma::cx_mat eigvec;
-        arma::eig_gen(eigval, eigvec, Ham);
+        arma::eig_gen(eigval, eigvec, Ham);  // Need to choose eigensolver properly 
         
         Ham.print();
         eigvec.print();
